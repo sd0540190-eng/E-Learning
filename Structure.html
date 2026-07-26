@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>E-Learn Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;800&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#"><span class="mark">EL</span> E-Learn Hub</a>
+    <a class="cta" href="#roles">View the build</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap grid">
+
+    <div>
+      <p class="eyebrow">Full-stack e-learning platform</p>
+      <h1>One platform.<br />Three roles.<br /><span id="role">Students</span> first.</h1>
+      <p class="sub">Courses and video lessons, quizzes with instant scores, progress tracking, and certificates issued the moment a course is finished.</p>
+      <div class="meta"><i>MERN stack</i><i>Role-based access</i><i>REST API</i></div>
+    </div>
+
+    <!-- signature element: role console -->
+    <div class="console" id="roles">
+      <div class="bar">
+        <i class="dot"></i><i class="dot"></i><i class="dot live"></i>
+        <b>GET /api/auth/me</b>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Choose a role">
+        <button role="tab" data-r="student"    aria-selected="true">Student</button>
+        <button role="tab" data-r="instructor" aria-selected="false">Instructor</button>
+        <button role="tab" data-r="admin"      aria-selected="false">Admin</button>
+      </div>
+      <div id="out"></div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============ FEATURES ============ -->
+<section class="feat">
+  <div class="wrap">
+    <p class="eyebrow">Beyond the core</p>
+    <div class="cards">
+        <ul>
+      <div class="card"><h3><li>AI study assistant</li></h3><p>Answers course questions without waiting for the instructor.</p></div>
+      <div class="card"><h3><li>Recommendations</li></h3><p>Suggests what to learn next from enrolments and quiz results.</p></div>
+      <div class="card"><h3><li>Discussion form</li></h3><p>A thread per course, so answers stay with the lesson.</p></div>
+      <div class="card"><h3><li>Ratings and reviews</li></h3><p>Learners rate courses after completion; it ranks the catalogue.</p></div>
+      <div class="card"><h3><li>Certificates</li></h3><p>A verifiable PDF with a unique code, generated on completion.</p></div>
+      <div class="card"><h3><li>Dark mode, responsive</li></h3><p>One interface from a 360px phone to a wide desktop.</p></div>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="tag">Empowering learners. Enabling educators.</div>
+    <small>E-Learn Hub · Learn · Grow · Succeed</small>
+  </div>
+</footer>
+
+<script>
+const R = {
+  student:{ n:"Students", a:"#22C58B", g:"rgba(34,197,139,.14)", c:[
+    "Browse and search courses by category","Enrol and start immediately",
+    "Watch lectures, download PDF notes","Take quizzes, see scores instantly",
+    "Track progress and earn certificates"]},
+  instructor:{ n:"Instructors", a:"#F5A524", g:"rgba(245,165,36,.14)", c:[
+    "Create courses with lessons","Upload videos and note files",
+    "Build quizzes and question banks","See who is enrolled",
+    "Monitor progress and quiz results"]},
+  admin:{ n:"Admins", a:"#8B5CF6", g:"rgba(139,92,246,.14)", c:[
+    "Manage students and instructors","Approve instructor accounts",
+    "Manage the full course catalogue","View platform analytics",
+    "Remove inappropriate content"]}
+};
+
+const out  = document.getElementById("out");
+const role = document.getElementById("role");
+const tabs = document.querySelectorAll(".tabs button");
+const root = document.documentElement;
+
+function show(key){
+  const r = R[key];
+  root.style.setProperty("--accent", r.a);
+  root.style.setProperty("--glow",   r.g);
+  role.textContent = r.n;
+  out.innerHTML = <ul class="caps fade">${r.c.map(x=><li>${x}</li>).join("")}</ul>;
+  tabs.forEach(t => t.setAttribute("aria-selected", t.dataset.r === key));
+}
+
+tabs.forEach(t => t.onclick = () => show(t.dataset.r));
+show("student");
+</script>
+</body>
+</html>
